@@ -1,18 +1,50 @@
 // 1. Use the D3 library to read in samples.json.
 
-d3.json("../data/samples.json").then(function (data) {
-    console.log(data.samples[0].sample_values);
-    console.log(data.samples[0].otu_ids);
-    console.log(data.samples[0].otu_labels);
-});
+d3.json("../data/samples.json").then((incomingData) => {
 
-// 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
+    function sortedData(bacteria) { return bacteria.samples[0].sample_values.sort((fst, secnd) => fst - secnd).slice(0, 10) }
 
+    // Use filter() to pass the function as its argument
+    var sorted = incomingData.filter(sortedData);
+
+    //check console
+    // console.log(data.samples[0].sample_values);
+    // console.log(data.samples[0].otu_ids);
+    // console.log(data.samples[0].otu_labels);
+    console.log(sorted)
+
+    //store then in a variable
+    var values = sorted.map(bac => bac.sample_values);
+    var ids = sorted.map(bac => bac.otu_ids);
+    var labels = sorted.map(bac => bac.otu_labels);
+
+    // 2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
     // Use sample_values as the values for the bar chart.
-
     // Use otu_ids as the labels for the bar chart.
-
     // Use otu_labels as the hovertext for the chart.
+    // Create your trace.
+    var trace = {
+        x: values,
+        y: ids,
+        hovertext: labels,
+        type: "bar",
+        orientation: "h"
+    };
+
+    // Create the data array for our plot
+    var data = [trace];
+
+    // Define the plot layout
+    var layout = {
+        title: "Top 10 OTUs found in individual selected",
+        xaxis: { title: "# of things" },
+        yaxis: { title: "OTUs" }
+    };
+
+    // Plot the chart to a div tag with id "bar-plot"
+    Plotly.newPlot("bar", data, layout);
+
+});
 
 // 3. Create a bubble chart that displays each sample.
 
