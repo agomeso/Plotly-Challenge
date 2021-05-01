@@ -112,7 +112,33 @@ function buildPage(idselected) {
                 // console.log(d);
                 return `<h5>id: ${d.id}</h5><h5> Ethnicity: ${d.ethnicity}</h5><h5> Gender: ${d.gender}</h5><h5> Age: ${d.age}</h5><h5> Location: ${d.location}</h5><h5> Wash Freq: ${d.wfreq}</h5>`
             })
+        var speeddata = [
+            {
+                domain: { x: [0, 1], y: [0, 1] },
+                value: data.metadata.filter(o => o.id == idselected)[0].wfreq,
+                title: { text: "<b>Belly Button Washing Frequency</b> <br> Scrubs per week" },
+                gauge: {
+                    axis: { range: [0, 10] },
+                    steps: [
+                        { range: [0, 1], color: "rgb(165,0,38)" },
+                        { range: [1, 2], color: "rgb(215,48,39)" },
+                        { range: [2, 3], color: "rgb(244,109,67)" },
+                        { range: [3, 4], color: "rgb(253,174,97)" },
+                        { range: [4, 5], color: "rgb(254,224,144)" },
+                        { range: [5, 6], color: "rgb(224,243,248)" },
+                        { range: [6, 7], color: "rgb(171,217,233)" },
+                        { range: [7, 8], color: "rgb(116,173,209)" },
+                        { range: [8, 9], color: "rgb(69,117,180)" },
+                        { range: [9, 10], color: "rgb(49,54,149)" },
+                    ],
+                },
+                type: "indicator",
+                mode: "gauge+number"
+            }
+        ];
 
+        var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+        Plotly.newPlot('gauge', speeddata, layout);
 
     });
 }
