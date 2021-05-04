@@ -1,5 +1,5 @@
 //Create a list of IDs to pass to the dropdown
-d3.json("../../data/samples.json").then(function (data) {
+d3.json("data/samples.json").then(function (data) {
     console.log(data);
     //Populate the dropdown
     var dropdown = d3.selectAll("#selDataset")
