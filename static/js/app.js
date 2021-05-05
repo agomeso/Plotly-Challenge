@@ -33,7 +33,7 @@ function handleSubmit() {
 function buildPage(idselected) {
 
     // 1. Use the D3 library to read in samples.json.
-    d3.json("../data/samples.json").then(function (data) {
+    d3.json("data/samples.json").then(function (data) {
 
         var values = data.samples.filter(o => o.id == idselected)[0].sample_values.slice(0, 10).reverse();
         // console.log(values);
